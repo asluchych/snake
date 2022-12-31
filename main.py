@@ -1,22 +1,20 @@
-import pygame as pg
-from game_objects import *
 import sys
+from game_objects import *
 
 
 class Game:
     def __init__(self):
         pg.init()
-        self.WINDOW_SIZE = 800
-        self.TILE_SIZE = 50
-        self.screen = pg.display.set_mode([self.WINDOW_SIZE] * 2)
+        pg.display.set_caption('SNAKE')
+        self.screen = pg.display.set_mode([WINDOW_SIZE] * 2)
         self.clock = pg.time.Clock()
         self.new_game()
 
     def draw_grid(self):
-        [pg.draw.line(self.screen, [50] * 3, (x, 0), (x, self.WINDOW_SIZE))
-         for x in range(0, self.WINDOW_SIZE, self.TILE_SIZE)]
-        [pg.draw.line(self.screen, [50] * 3, (0, y), (self.WINDOW_SIZE, y))
-         for y in range(0, self.WINDOW_SIZE, self.TILE_SIZE)]
+        [pg.draw.line(self.screen, [50] * 3, (x, 0), (x, WINDOW_SIZE))
+         for x in range(0, WINDOW_SIZE, TILE_SIZE)]
+        [pg.draw.line(self.screen, [50] * 3, (0, y), (WINDOW_SIZE, y))
+         for y in range(0, WINDOW_SIZE, TILE_SIZE)]
 
     def new_game(self):
         self.snake = Snake(self)
@@ -26,7 +24,7 @@ class Game:
         self.snake.update()
         self.food.update()
         pg.display.flip()
-        self.clock.tick(60)
+        self.clock.tick(FPS)
 
     def draw(self):
         self.screen.fill('black')

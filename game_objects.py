@@ -1,13 +1,16 @@
 import pygame as pg
 from random import randrange
 
+from settings import *
+
 vec2 = pg.math.Vector2
+
 
 class Snake:
     def __init__(self, game):
         self.game = game
-        self.size = game.TILE_SIZE
-        self.rect = pg.rect.Rect([0, 0, game.TILE_SIZE - 2, game.TILE_SIZE - 2])
+        self.size = TILE_SIZE
+        self.rect = pg.rect.Rect([0, 0, TILE_SIZE - 2, TILE_SIZE - 2])
         self.rect.center = self.get_random_position()
         self.direction = vec2(0, 0)
         self.step_delay = 100  # milliseconds
@@ -39,12 +42,12 @@ class Snake:
         return False
 
     def get_random_position(self):
-        return [randrange(self.size // 2, self.game.WINDOW_SIZE - self.size // 2, self.size)] * 2
+        return [randrange(self.size // 2, WINDOW_SIZE - self.size // 2, self.size)] * 2
 
     def check_borders(self):
-        if self.rect.left < 0 or self.rect.right > self.game.WINDOW_SIZE:
+        if self.rect.left < 0 or self.rect.right > WINDOW_SIZE:
             self.game.new_game()
-        if self.rect.top < 0 or self.rect.bottom > self.game.WINDOW_SIZE:
+        if self.rect.top < 0 or self.rect.bottom > WINDOW_SIZE:
             self.game.new_game()
 
     def check_food(self):
@@ -75,15 +78,15 @@ class Snake:
 class Food:
     def __init__(self, game):
         self.game = game
-        self.size = game.TILE_SIZE
-        self.rect = pg.rect.Rect([0, 0, game.TILE_SIZE - 2, game.TILE_SIZE - 2])
+        self.size = TILE_SIZE
+        self.rect = pg.rect.Rect([0, 0, TILE_SIZE - 2, TILE_SIZE - 2])
         self.rect.center = self.game.snake.get_random_position()
         self.blink_rate = 300
         self.time = 0
         self.is_blinking = False
 
     def update(self):
-        self.time += pg.time.Clock().tick(60)
+        self.time += pg.time.Clock().tick(FPS)
         if self.time > self.blink_rate:
             self.is_blinking = not self.is_blinking
             self.time = 0
