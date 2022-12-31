@@ -2,6 +2,7 @@ import pygame as pg
 from game_objects import *
 import sys
 
+
 class Game:
     def __init__(self):
         pg.init()
@@ -37,6 +38,8 @@ class Game:
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
+            # snake controls
+            self.snake.control(event)
 
     def run(self):
         while True:
