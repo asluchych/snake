@@ -78,6 +78,16 @@ class Food:
         self.size = game.TILE_SIZE
         self.rect = pg.rect.Rect([0, 0, game.TILE_SIZE - 2, game.TILE_SIZE - 2])
         self.rect.center = self.game.snake.get_random_position()
+        self.blink_rate = 300
+        self.time = 0
+        self.is_blinking = False
+
+    def update(self):
+        self.time += pg.time.Clock().tick(60)
+        if self.time > self.blink_rate:
+            self.is_blinking = not self.is_blinking
+            self.time = 0
 
     def draw(self):
-        pg.draw.rect(self.game.screen, 'dimgray', self.rect)
+        if not self.is_blinking:
+            pg.draw.rect(self.game.screen, 'dimgray', self.rect)

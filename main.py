@@ -24,6 +24,7 @@ class Game:
 
     def update(self):
         self.snake.update()
+        self.food.update()
         pg.display.flip()
         self.clock.tick(60)
 
